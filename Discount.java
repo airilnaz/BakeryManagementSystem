@@ -46,19 +46,19 @@ public class Discount
     {
         switch (enteredCode)
         {
-            case "Y1id390":
+            case "DISC50":
                 this.disCode = enteredCode;
                 this.percentOff = 50;
                 this.isValid = true;
                 return "Discount code applied: 50% off";
 
-            case "N39dej4":
+            case "DISC25":
                 this.disCode = enteredCode;
                 this.percentOff = 25;
                 this.isValid = true;
                 return "Discount code applied: 25% off";
 
-            case "D8jw792":
+            case "DISC10":
                 this.disCode = enteredCode;
                 this.percentOff = 10;
                 this.isValid = true;
