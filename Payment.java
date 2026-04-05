@@ -27,7 +27,7 @@ public class Payment {
         else {
             isSuccessful = false;
             double shortAmount = orderTotal - amountTendered;
-            System.out.println("Payment Failed: Insufficient Funds. Short by RM" + String.format("%.2f", shortAmount))
+            System.out.println("Payment Failed: Insufficient Funds. Short by RM" + String.format("%.2f", shortAmount));
         }
     }
     
