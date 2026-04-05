@@ -6,7 +6,8 @@ public class Cart {
 
     public Cart() {
         cartItems = new ArrayList<>();
-
+    }
+    
     public boolean addItem(Product product, int quantity) {
 
         if (quantity <= 0 || quantity > 99) {
