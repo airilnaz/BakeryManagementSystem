@@ -92,8 +92,6 @@ public class Main {
         System.out.println("         SWEET CRUMBS BAKERY                  ");
         System.out.println("         Bakery Management System              ");
         System.out.println("  ============================================");
-        System.out.println("  Take-Away Orders Only | No Deliveries");
-        System.out.println("  ============================================");
     }
 
     static void printMainMenu() {
