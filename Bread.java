@@ -8,16 +8,9 @@ public class Bread  extends Product {
     
     @Override
     public void displayProduct() {
-        System.out.println("Bread: " + getName());
-        System.out.println("Price: RM" + getPrice());
+        String breadType = isSliced ? "Sliced Loaf" : "Whole Loaf";
         
-        if(isSliced) {
-            System.out.println("Type: Sliced Loaf");
-        }
-        else {
-            System.out.println("Type: Whole Loaf");
-        }
-        System.out.println("Available Stock: " + getQuantityInStock());
+        System.out.printf("%-6s %-25s %-15s RM%-8.2f %d\n", getID(), getName(), breadType, getPrice(), getQuantityInStock());
     }
     
     public boolean getIsSliced() { return isSliced; }
