@@ -42,5 +42,20 @@ public abstract class Product {
         public String getCategory() {
             return category;
         } 
-        
+
+        public void setProductID(String pID) {
+        productID = pID;
+        }
+    
+        public void setProductName(String pName) {
+        productName = pName;
+        }
+    
+        public void setBasePrice(double bPrice) {
+        basePrice = bPrice;
+        }
+    
+        public void setCategory(String cat) {
+        category = cat;
+        }
 }
