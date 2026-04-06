@@ -108,16 +108,41 @@ public class Main {
 
     static void viewMenu() {
         System.out.println();
-        System.out.println("  ============================================");
-        System.out.println("          SWEET CRUMBS BAKERY MENU            ");
-        System.out.println("  ============================================");
+        System.out.println("===================================================================================");
+        System.out.println("                            SWEET CRUMBS BAKERY MENU                               ");
+        System.out.println("===================================================================================");
 
-        for (Product product : menu) {
-            System.out.println("  ------------------------------------------");
-            product.displayProduct(); // polymorphic call
+            System.out.println("BREADS");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("%-6s %-25s %-15s %-10s %s\n", "ID", "Item", "Type", "Price", "Stock");
+        System.out.println("-----------------------------------------------------------------------------------");
+        for (Product p : menu) {
+            if (p instanceof Bread) {
+                p.displayProduct();
+            }
+        }
+        
+        System.out.println("\nPASTRIES");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("%-6s %-25s %-15s %-10s %s\n", "ID", "Item", "Pastry Type", "Price", "Stock");
+        System.out.println("-----------------------------------------------------------------------------------");
+        for (Product p : menu) {
+            if (p instanceof Pastry) {
+                p.displayProduct();
+            }
+        }
+        
+        System.out.println("\nCAKES");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("%-6s %-25s %-6s %-20s %-10s %s\n", "ID", "Item", "Weight", "Message", "Price", "Stock");
+        System.out.println("-----------------------------------------------------------------------------------");
+        for (Product p : menu) {
+            if (p instanceof Cake) {
+                p.displayProduct();
+            }
         }
 
-        System.out.println("  ============================================");
+        System.out.println("===================================================================================");
     }
 
     static void addToCart() {
@@ -142,9 +167,9 @@ public class Main {
         }
 
         System.out.println("\n  Selected:");
-        System.out.println("  ------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
         selected.displayProduct();
-        System.out.println("  ------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
 
         int qty = getIntInput("  Enter quantity: ");
 
@@ -201,11 +226,48 @@ public class Main {
         String confirm = scanner.nextLine().trim().toUpperCase();
 
         if (confirm.equals("Y")) {
-            // Creating an Order automatically deducts stock from each Product
-            Order order = new Order(name, cart);
-            orderManager.addOrder(order);
-            order.displayReceipt();
-            cart.clear(); // empty the cart after a successful order
+            
+            double finalTotal = cart.getTotal(); 
+            
+            System.out.println("\n  ========== PAYMENT ==========");
+            System.out.println("  Amount Due: RM" + String.format("%.2f", finalTotal));
+            System.out.println("  Select Payment Method:");
+            System.out.println("  1. CASH");
+            System.out.println("  2. CARD");
+            System.out.println("  3. E-WALLET");
+            int payChoice = getIntInput("  Enter choice (1-3): ");
+            
+            PaymentMethod selectedMethod = PaymentMethod.CASH;
+            if (payChoice == 2) selectedMethod = PaymentMethod.CARD;
+            if (payChoice == 3) selectedMethod = PaymentMethod.E_WALLET;
+            
+            double amountGiven = finalTotal; 
+            if (selectedMethod == PaymentMethod.CASH) {
+                System.out.print("  Enter cash amount given: RM");
+                amountGiven = Double.parseDouble(scanner.nextLine().trim());
+            }
+            
+            String newPaymentID = "PAY-" + System.currentTimeMillis();
+            Payment payment = new Payment(newPaymentID, amountGiven, selectedMethod);
+            
+            System.out.println("  ------------------------------");
+            payment.processPayment(finalTotal);
+            
+            if (payment.getIsSuccessful()) {
+                
+                if (selectedMethod == PaymentMethod.CASH) {
+                    System.out.println("  Change Due: RM" + String.format("%.2f", payment.calculateChange(finalTotal)));
+                }
+                
+                Order order = new Order(name, cart); // This safely deducts the stock
+                orderManager.addOrder(order);
+                order.displayReceipt();
+                cart.clear(); // Empty the cart
+                
+            } else {
+                System.out.println("  Checkout failed. Returning to menu. Your cart is still saved.");
+            }
+
         } else {
             System.out.println("  Order cancelled. Your cart is still saved.");
         }
