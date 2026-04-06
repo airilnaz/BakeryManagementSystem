@@ -8,10 +8,7 @@ public class Pastry extends Product {
     
     @Override
     public void displayProduct() {
-        System.out.println("Pastry: " + getName());
-        System.out.println("Price: RM" + getPrice());
-        System.out.println("Type: " + type);
-        System.out.println("Available Stock: " + getQuantityInStock());
+    System.out.printf("%-6s %-25s %-15s RM%-8.2f %d\n",getID(), getName(), type, getPrice(), getQuantityInStock());
     }
     
     public PastryType getType() {
