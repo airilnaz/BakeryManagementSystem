@@ -11,11 +11,7 @@ public class Cake extends Product {
     
     @Override
     public void displayProduct() {
-        System.out.println("Cake: " + getName());
-        System.out.println("Price: RM" + getPrice());
-        System.out.println("Weight: " + weight + "kg");
-        System.out.println("Message on cake: " + customMessage);
-        System.out.println("Available Stock: " + getQuantityInStock());
+    System.out.printf("%-6s %-25s %-6.1f %-20s RM%-8.2f %d\n", getID(), getName(), getWeight(), getCustomMessage(), getPrice(), getQuantityInStock());
     }
     
     public String getCustomMessage() {
