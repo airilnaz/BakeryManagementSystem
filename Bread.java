@@ -6,7 +6,6 @@ public class Bread  extends Product {
         isSliced = iSl;
     }
     
-    @Override
     public void displayProduct() {
         String breadType = isSliced ? "Sliced Loaf" : "Whole Loaf";
         
