@@ -146,37 +146,49 @@ public class Main {
     }
 
     static void addToCart() {
-        viewMenu();
-        System.out.print("\n  Enter Product ID to add (or 0 to cancel): ");
-        String id = scanner.nextLine().trim();
+        while(true) {
+            viewMenu();
 
-        if (id.equals("0")) return;
+            // Search the menu ArrayList for a matching product ID
+            Product selected = null;
+            while (selected == null) {
+                System.out.print("\n  Enter Product ID to add (or 0 to cancel): ");
+                String id = scanner.nextLine().trim();
 
-        // Search the menu ArrayList for a matching product ID
-        Product selected = null;
-        for (Product p : menu) {
-            if (p.getID().equalsIgnoreCase(id)) {
-                selected = p;
-                break;
+                if (id.equals("0")) return;
+
+
+                for (Product p : menu) {
+                    if (p.getID().equalsIgnoreCase(id)) {
+                        selected = p;
+                        break;
+                    }
+                }
+
+                if (selected == null) {
+                    System.out.println("  Product ID \"" + id + "\" not found. Please try again.");
+                }
+            }
+
+            System.out.println("\n  Selected:");
+            System.out.println("-----------------------------------------------------------------------------------");
+            selected.displayProduct();
+            System.out.println("-----------------------------------------------------------------------------------");
+
+            int qty = getIntInput("  Enter quantity: ");
+
+            if (cart.addItem(selected, qty)) {
+                System.out.printf("  Added %dx %s to cart.%n", qty, selected.getName());
+            }
+            // if addItem() returned false, Cart already printed the reason
+
+            // Ask if user wants to add more items
+            System.out.print("\n  Add more items? (Y/N): ");
+            String more = scanner.nextLine().trim().toUpperCase();
+            if (!more.equals("Y")) {
+                return; // Go back to main menu
             }
         }
-
-        if (selected == null) {
-            System.out.println("  Product ID \"" + id + "\" not found. Please try again.");
-            return;
-        }
-
-        System.out.println("\n  Selected:");
-        System.out.println("-----------------------------------------------------------------------------------");
-        selected.displayProduct();
-        System.out.println("-----------------------------------------------------------------------------------");
-
-        int qty = getIntInput("  Enter quantity: ");
-
-        if (cart.addItem(selected, qty)) {
-            System.out.printf("  Added %dx %s to cart.%n", qty, selected.getName());
-        }
-        // if addItem() returned false, Cart already printed the reason
     }
 
     static void removeFromCart() {
