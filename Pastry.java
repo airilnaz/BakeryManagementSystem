@@ -6,7 +6,6 @@ public class Pastry extends Product {
     this.type = type;
     }
     
-    @Override
     public void displayProduct() {
     System.out.printf("%-6s %-25s %-15s RM%-8.2f %d\n",getID(), getName(), type, getPrice(), getQuantityInStock());
     }
