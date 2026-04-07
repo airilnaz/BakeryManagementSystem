@@ -9,7 +9,6 @@ public class Cake extends Product {
         
     } 
     
-    @Override
     public void displayProduct() {
     System.out.printf("%-6s %-25s %-6.1f %-20s RM%-8.2f %d\n", getID(), getName(), getWeight(), getCustomMessage(), getPrice(), getQuantityInStock());
     }
