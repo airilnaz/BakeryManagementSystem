@@ -227,7 +227,9 @@ public class Main {
 
         if (confirm.equals("Y")) {
             
-            double finalTotal = cart.getTotal(); 
+            double subtotal   = cart.getTotal();
+            double disAmount  = discount.calculateDisAmount(subtotal);
+            double finalTotal = subtotal - disAmount;                
             
             System.out.println("\n  ========== PAYMENT ==========");
             System.out.println("  Amount Due: RM" + String.format("%.2f", finalTotal));
