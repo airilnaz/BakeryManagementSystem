@@ -3,13 +3,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    static Scanner              scanner      = new Scanner(System.in);
-    static ArrayList<Product>   menu         = new ArrayList<>();  // polymorphic list
-    static Cart                 cart         = new Cart();
-    static OrderManager         orderManager = new OrderManager();
-    static StaffLogin           staffLogin   = new StaffLogin();
-    static Staff                currentStaff = null;
-
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayList<Product> menu = new ArrayList<>();  // polymorphic list
+    static Cart cart = new Cart();
+    static OrderManager orderManager = new OrderManager();
+    static StaffLogin staffLogin = new StaffLogin();
+    static Staff currentStaff = null;
     public static void main(String[] args) {
         loginSystem();
         loadMenu();
@@ -180,7 +179,6 @@ public class Main {
             if (cart.addItem(selected, qty)) {
                 System.out.printf("  Added %dx %s to cart.%n", qty, selected.getName());
             }
-            // if addItem() returned false, Cart already printed the reason
 
             // Ask if user wants to add more items
             System.out.print("\n  Add more items? (Y/N): ");
@@ -273,10 +271,10 @@ public class Main {
                     System.out.println("  Change Due: RM" + String.format("%.2f", payment.calculateChange(finalTotal)));
                 }
                 
-                Order order = new Order(name, cart); // This safely deducts the stock
+                Order order = new Order(name, cart,finalTotal,disAmount,subtotal);
                 orderManager.addOrder(order);
                 order.displayReceipt();
-                cart.clear(); // Empty the cart
+                cart.clear();
                 
             } else {
                 System.out.println("  Checkout failed. Returning to menu. Your cart is still saved.");
