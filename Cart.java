@@ -24,7 +24,6 @@ public class Cart {
 
         for (CartItem ci : cartItems) {
             if (ci.getItem().getID().equals(product.getID())) {
-                // Check combined quantity still fits in stock
                 int newTotal = ci.getQuantity() + quantity;
                 if (!product.isAvailable(newTotal)) {
                     System.out.println("  Cannot add " + quantity + " more. Only "
@@ -35,7 +34,6 @@ public class Cart {
                 return true;
             }
         }
-
 
         cartItems.add(new CartItem(product, quantity));
         return true;
