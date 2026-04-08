@@ -69,7 +69,6 @@ public class Payment {
         method = newMethod; 
     }
 
-    @Override
     public String toString() {
         String status = isSuccessful ? "Successful" : "Pending/Failed";
         return String.format("Payment [%s] | Method: %s | Tendered: %.2f | Status: %s", paymentID, method, amountTendered, status);
