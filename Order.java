@@ -2,18 +2,21 @@ import java.util.ArrayList;
 
 public class Order {
 
-    // Static counter -- auto-numbers each order starting from 1001
     private static int orderCounter = 1000;
 
-    private int                 orderNumber;
-    private String              customerName;
-    private ArrayList<CartItem> items; // snapshot of cart at time of order
-    private double              total;
+    private int orderNumber;
+    private String customerName;
+    private ArrayList<CartItem> items;
+    private double total;
+    private double subtotal;
+    private double discount;
 
-    public Order(String customerName, Cart cart) {
-        this.orderNumber  = ++orderCounter;
+    public Order(String customerName, Cart cart, double finalTotal, double discount, double subtotal) {
+        this.orderNumber = ++orderCounter;
         this.customerName = customerName;
-        this.total        = cart.getTotal();
+        this.total = finalTotal;
+        this.discount = discount;
+        this.subtotal = subtotal;
 
         // Copy cart items into this order's own list (snapshot)
         this.items = new ArrayList<>();
@@ -24,9 +27,16 @@ public class Order {
         }
     }
 
-    public int    getOrderNumber()  { return orderNumber;  }
-    public String getCustomerName() { return customerName; }
-    public double getTotal()        { return total;        }
+    public int    getOrderNumber()  { 
+        return orderNumber;
+    }
+    public String getCustomerName() {
+        return customerName;
+    }
+    public double getTotal()        { 
+        return total;        
+
+    }
 
     public void displayReceipt() {
         System.out.println();
@@ -40,6 +50,8 @@ public class Order {
         }
 
         System.out.println("  ------------------------------------------");
+        System.out.printf ("  SUBTOTAL : RM%.2f%n", subtotal);
+        System.out.printf ("  Discount Applied : RM%.2f%n", discount);
         System.out.printf ("  TOTAL PAID : RM%.2f%n", total);
         System.out.println("  Thank you! Please collect at the counter.");
         System.out.println("  ==========================================");
